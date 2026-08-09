@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mis 15 Años - Matilda | Confirmación de Asistencia</title>
+  <meta name="description" content="Invitación digital interactiva para los 15 Años de Matilda. Confirma tu asistencia, sugiere canciones y vive la magia de esta noche nocturna y mística." />
+  
+  <!-- Tipografías de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
+  
+  <!-- Hoja de Estilos Principal -->
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <!-- Canvas de fondo para el mapa de estrellas animado -->
+  <canvas id="star-canvas"></canvas>
+
+  <!-- Control de música ambiental flotante 
+  <button id="ambient-music-btn" class="music-float-btn" aria-label="Música de fondo" title="Activar/Desactivar música de fondo">
+    <span class="music-icon">🎵</span>
+    <span class="music-text">Música</span>
+  </button>-->
+
+  <!-- Banner de Notificación Toast -->
+  <div id="toast-notification" class="toast hidden" role="alert">
+    <span id="toast-icon">✨</span>
+    <span id="toast-message">Mensaje de notificación</span>
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- ==================== 1. HERO / PORTADA ==================== -->
+    <header class="hero-section" id="hero">
+      <div class="hero-content">
+        <!-- Ornamento Místico Lunar -->
+        <div class="moon-container">
+          <div class="glowing-moon">
+            <div class="moon-crater c1"></div>
+            <div class="moon-crater c2"></div>
+            <div class="moon-crater c3"></div>
+          </div>
+          <div class="stars-orbit"></div>
+        </div>
+
+        <p class="hero-subtitle-top">MIS 15 AÑOS</p>
+
+        <h1 class="hero-title">Matilda</h1>
+
+        <p class="hero-quote">
+          "Las noches especiales se iluminan con las personas que queremos. <br> Quiero compatir esta noche con vos."
+        </p>
+
+        <div class="hero-date-badge">
+          <span class="badge-icon">🌙</span>
+          <span class="badge-text">03 DE OCTUBRE DE 2026</span>
+          <span class="badge-icon">✨</span>
+        </div>
+
+        <a href="#countdown" class="scroll-down-btn" aria-label="Desplazarse hacia abajo">
+          <span class="arrow-down">↓</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Separador Estelar -->
+    <div class="section-divider">
+      <span class="divider-line"></span>
+      <span class="divider-symbol">✦ <i class="fa-solid fa-moon"></i> ✦</span>
+      <span class="divider-line"></span>
+    </div>
+
+    <!-- ==================== 2. CUENTA REGRESIVA ==================== -->
+    <section class="countdown-section" id="countdown">
+      <div class="container">
+        <h2 class="section-title">La Cuenta Regresiva</h2>
+        <p class="section-subtitle">Cada segundo nos acerca a una noche inolvidable</p>
+
+        <div class="countdown-grid">
+          <div class="countdown-card">
+            <span class="countdown-value" id="days">00</span>
+            <span class="countdown-label">Días</span>
+          </div>
+          <div class="countdown-card">
+            <span class="countdown-value" id="hours">00</span>
+            <span class="countdown-label">Horas</span>
+          </div>
+          <div class="countdown-card">
+            <span class="countdown-value" id="minutes">00</span>
+            <span class="countdown-label">Minutos</span>
+          </div>
+          <div class="countdown-card">
+            <span class="countdown-value" id="seconds">00</span>
+            <span class="countdown-label">Segundos</span>
+          </div>
+        </div>
+
+        <!-- <p class="countdown-note" id="countdown-status">
+          ✦ Faltan pocos días para la fiesta ✦
+        </p> -->
+      </div>
+    </section>
+
+    <!-- Separador Estelar -->
+    <div class="section-divider">
+      <span class="divider-line"></span>
+      <span class="divider-symbol">✦ <i class="fa-solid fa-location-dot"></i> ✦</span>
+      <span class="divider-line"></span>
+    </div>
+
+    <!-- ==================== 3. UBICACIÓN Y AGENDADO ==================== -->
+    <section class="location-section" id="location">
+      <div class="container">
+        <h2 class="section-title">Fecha & Ubicación</h2>
+        <p class="section-subtitle">Acompáñame a celebrar en esta gran velada</p>
+
+        <div class="location-cards-grid">
+          <!-- Card Fecha y Hora -->
+          <div class="info-card">
+            <div class="card-icon"><i class="fa-regular fa-calendar-check"></i></div>
+            <h3>Fecha y Hora</h3>
+            <p class="card-main-info">Sábado 03 de Octubre</p>
+            <p class="card-sub-info">de 21:00 a 5:00 hs</p>
+            <button id="btn-calendar" class="btn btn-secondary btn-full">
+              <span class="btn-icon">🗓️</span> Agendar en Google Calendar
+            </button>
+            <button id="btn-calendar-iphone" class="btn btn-secondary btn-full">
+              <span class="btn-icon">🗓️</span> Agendar en iPhone / iOS
+            </button>
+          </div>
+
+          <!-- Card Salón / Ubicación -->
+          <div class="info-card">
+            <div class="card-icon"><i class="fa-brands fa-fort-awesome"></i></div>
+            <h3>ubicación</h3>
+            <p class="card-main-info">Jano's San Telmo II</p>
+            <p class="card-sub-info">Moreno 550, CABA</p>
+            <a href="https://maps.app.goo.gl/nYGT888E4T5jnqRH7" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-full">
+              <span class="btn-icon">📍</span> Ver en Google Maps
+            </a>
+          </div>
+        </div>
+
+        <!-- Mapa Embebido de Google Maps 
+        <div class="map-wrapper">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d597.4929370924407!2d-58.37475586947321!3d-34.61148673937932!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccbb7f964ce59%3A0x545bfb44bfcd4d80!2sJano's%20San%20Telmo%202!5e0!3m2!1ses!2sar!4v1786235489340!5m2!1ses!2sar" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>-->
+      </div>
+    </section>
+
+    <!-- Separador Estelar -->
+    <div class="section-divider">
+      <span class="divider-line"></span>
+      <span class="divider-symbol">✦ ✉️ ✦</span>
+      <span class="divider-line"></span>
+    </div>
+
+    <!-- ==================== 4. CONFIRMACIÓN DE ASISTENCIA (RSVP) ==================== -->
+    <section class="rsvp-section" id="rsvp">
+      <div class="container max-w-md">
+        <div class="glass-card">
+          <h2 class="section-title">Confirmación <br> de Asistencia</h2>
+          <p class="section-subtitle">Saber con tiempo si venis, nos ayuda a la organización. <br> Hacelo antes del <strong>19/09/2026</strong></p>
+
+          <form id="rsvp-form" class="custom-form">
+            <div class="form-group">
+              <label for="rsvp-name">Nombre y Apellido *</label>
+              <input type="text" id="rsvp-name" name="nombre" placeholder="Ej. Camila Pérez" required />
+            </div>
+
+            <div class="form-group">
+              <label>¿Te espero en esta noche mágica? *</label>
+              <div class="radio-options">
+                <label class="radio-card">
+                  <input type="radio" name="asiste" value="si" checked />
+                  <span class="radio-custom"></span>
+                  <span class="radio-label">¡Sí, obviooo! 🤩</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="asiste" value="no" />
+                  <span class="radio-custom"></span>
+                  <span class="radio-label">ups, no puedo 💔</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="rsvp-diet">Restricción Alimenticia *</label>
+              <select id="rsvp-diet" name="restriccion">
+                <option value="Ninguna">Ninguna</option>
+                <option value="Vegetariano">Vegetariano/a</option>
+                <option value="Vegano">Vegano/a</option>
+                <option value="Celiaco">Celíaco/a (Sin TACC)</option>
+                <option value="Intolerante a la Lactosa">Intolerante a la Lactosa</option>
+                <option value="Otra">Otra (Especificar abajo)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="rsvp-message">Algo extra que quieras decirnos...</label>
+              <textarea id="rsvp-message" name="mensaje" rows="3" placeholder="Escribe tus buenos deseos aquí..."></textarea>
+            </div>
+
+            <button type="submit" id="rsvp-submit-btn" class="btn btn-primary btn-full btn-glow">
+              <span class="btn-text">Confirmar Asistencia</span>
+              <span class="btn-icon">✨</span>
+            </button>
+          </form>
+
+          <!-- Contenedor de confirmación exitosa -->
+          <div id="rsvp-success-msg" class="success-box hidden">
+            <div class="success-icon">🎉</div>
+            <h3>¡Gracias por confirmar!</h3>
+            <p id="rsvp-success-text">Tu respuesta ha sido registrada con éxito. ¡Nos vemos muy pronto!</p>
+            <button id="rsvp-edit-btn" class="btn btn-outline btn-sm">Enviar otra respuesta</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Separador Estelar -->
+    <div class="section-divider">
+      <span class="divider-line"></span>
+      <span class="divider-symbol">✦ <i class="fa-solid fa-music"></i> ✦</span>
+      <span class="divider-line"></span>
+    </div>
+
+    <!-- ==================== 5. DETALLES & INTERACTIVIDAD ==================== -->
+    <section class="interactive-section" id="details">
+      <div class="container">
+        
+        <!-- Sugerir Canción -->
+        <div class="music-suggestion-block">
+          <h2 class="section-title">Sugerinos una Canción</h2>
+          <p class="section-subtitle">¿Qué tema no puede faltar? Sumá a la playlist!</p>
+
+          <form id="song-form" class="custom-form inline-form max-w-md">
+            <div class="form-group">
+              <input type="text" id="song-title" placeholder="Nombre de la canción *" required />
+            </div>
+            <div class="form-group">
+              <input type="text" id="song-artist" placeholder="Artista / Banda *" required />
+            </div>
+            <div class="form-group">
+              <input type="text" id="song-user" placeholder="Tu Nombre" />
+            </div>
+            <button type="submit" class="btn btn-secondary">
+              <span class="btn-icon">🎵</span> enviar sugerencia
+            </button>
+          </form>
+
+          <!-- Lista interactiva de canciones sugeridas 
+          <div class="playlist-preview">
+            <h3>Canciones sugeridas por los invitados:</h3>
+            <div id="song-list-container" class="song-cards-container">
+              Se puebla dinámicamente desde JS 
+            </div>
+          </div>
+        </div>-->
+
+        <div class="grid-2-col">
+          <!-- Dress Code Card -->
+          <div class="glass-card feature-card">
+            <div class="feature-icon">👗👔</div>
+            <h3>Dress Code</h3>
+            <p class="feature-title">Elegante</p>
+            <p class="feature-desc">Queremos que te veas espectacular. Consulta nuestra guía de estilos y paleta recomendada.</p>
+            <button id="btn-dresscode-modal" class="btn btn-outline btn-full">
+              Ver Detalles del Dress Code
+            </button>
+          </div>
+
+          <!-- Regalos Card preview -->
+          <div class="glass-card feature-card">
+            <div class="feature-icon">🎁</div>
+            <h3>Regalo</h3>
+            <!-- <p class="feature-title">Tu Presencia es mi Regalo</p> -->
+            <p class="feature-desc">El mejor regalo es contar con tu presencia. <br> Sin embargo, si deseas realizarme un obsequio para acompañarme en mi futuro viaje</p>
+            <button id="btn-gift-modal" class="btn btn-outline btn-full">
+              Hacer regalo
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Separador Estelar -->
+    <div class="section-divider">
+      <span class="divider-line"></span>
+      <span class="divider-symbol">✦ 🌟 ✦</span>
+      <span class="divider-line"></span>
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer-section">
+      <div class="container">
+        <p class="footer-title">Matilda ✦ Mis 15 Años</p>
+        <p class="footer-date">3 de Octubre de 2026</p>
+        <p class="footer-copy">© 2026 - Desarrollado por <a href="https://www.aldeadg.com.ar" target="_blank" rel="noopener noreferrer">AldeaDG</a></p>
+      </div>
+    </footer>
+
+  </div> <!-- /page-wrapper -->
+
+  <!-- ==================== MODAL DRESS CODE ==================== -->
+  <div id="dresscode-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-dresscode-title">
+    <div class="modal-content glass-card">
+      <button class="modal-close" id="close-dresscode-modal" aria-label="Cerrar modal">&times;</button>
+      
+      <div class="modal-header">
+        <span class="modal-icon">✨</span>
+        <h3 id="modal-dresscode-title">Dress Code</h3>
+      </div>
+
+      <div class="modal-body">
+        <p>Para esta noche mágica e inolvidable, el código de vestimenta es <strong>Elegante Total Black</strong>.</p>
+        
+        <div class="style-tips">
+          <div class="tip-item">
+            <h4>👗 Para Ellas</h4>
+            <p>Vestidos de <br> noche largos.</p>
+          </div>
+          <div class="tip-item">
+            <h4>👔 Para Ellos</h4>
+            <p>Traje formal o ambo, camisa de vestir, calzado elegante.</p>
+          </div>
+        </div>
+
+        <!-- <div class="color-palette-guide">
+          <p><strong>Paleta sugerida:</strong> Azul Noche, Violeta, Plata, Negro, Dorado Místico.</p>
+          <div class="color-dots">
+            <span class="color-dot" style="background:#0C1166;" title="Azul Noche"></span>
+            <span class="color-dot" style="background:#796D99;" title="Violeta Místico"></span>
+            <span class="color-dot" style="background:#A1A1A1;" title="Gris Plata"></span>
+            <span class="color-dot" style="background:#111122;" title="Negro Noche"></span>
+            <span class="color-dot" style="background:#D4AF37;" title="Dorado"></span>
+          </div>
+          <p class="note-text">⚠️ Se solicita amablemente evitar el color blanco absoluto.</p>
+        </div> -->
+      </div>
+
+      <div class="modal-footer">
+        <a href="https://pinterest.com/search/pins/?q=Elegante%20total%20black%2015" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-full">
+          📌 Ver Tablero de Inspiración en Pinterest
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL REGALOS / DATOS BANCARIOS ==================== -->
+  <div id="gift-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-gift-title">
+    <div class="modal-content glass-card">
+      <button class="modal-close" id="close-gift-modal" aria-label="Cerrar modal">&times;</button>
+
+      <div class="modal-header">
+        <span class="modal-icon">🎁</span>
+        <h3 id="modal-gift-title">Regalos</h3>
+      </div>
+
+      <div class="modal-body">
+        <p class="gift-intro-text">
+          El mejor regalo es contar con tu presencia en esta noche tan soñada. Sin embargo, si deseas realizarme un obsequio para acompañarme en mi futuros viajes, te dejo los datos bancarios:
+        </p>
+
+        <div class="bank-card">
+          <div class="bank-row">
+            <span class="bank-label">Titular:</span>
+            <span class="bank-value">Matilda Varela Miglino</span>
+          </div>
+          <div class="bank-row">
+            <span class="bank-label">Entidad:</span>
+            <span class="bank-value">Mercado Pago</span>
+          </div>
+          <div class="bank-row">
+            <span class="bank-label">Alias:</span>
+            <span class="bank-value highlight" id="alias-value">hola.matilda.mp</span>
+            <button id="btn-copy-alias" class="btn-copy-icon" title="Copiar Alias">
+              📋 Copiar
+            </button>
+          </div>
+          <div class="bank-row">
+            <span class="bank-label">CVU:</span>
+            <span class="bank-value mono" id="cbu-value">0000003100080794378240</span>
+            <button id="btn-copy-cbu" class="btn-copy-icon" title="Copiar CBU">
+              📋 Copiar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="modal-footer">
+        <button id="btn-modal-copy-alias" class="btn btn-primary btn-full">
+          ✨ Copiar Alias (hola.matilda.mp)
+        </button>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Script principal de la aplicación -->
+  <script type="module" src="/script.js"></script>
+</body>
+</html>
