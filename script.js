@@ -1,7 +1,9 @@
-/* ==========================================================================
-   LÓGICA JAVASCRIPT - INVITACIÓN DIGITAL 15 AÑOS "MATILDA"
-   ========================================================================== */
-
+import { TARGET_DATE } from "./modules/setTargetDate.js";
+import { initStarCanvas } from "./modules/starCanvas.js";
+import { initCountdown } from "./modules/countdown.js";
+import { initCalendarButton,initCalendarButtonIphone } from "./modules/initCalendars.js";
+import { initSongSuggestions } from "./modules/songsuggestions.js";
+import { GOOGLE_SCRIPT_URL} from "./modules/scriptKeyGoogle.js";
 /* ==========================================================================
    1. CONFIGURACIÓN DE BASE DE DATOS (FIREBASE FIRESTORE & GOOGLE APPS SCRIPT)
    ==========================================================================
@@ -30,13 +32,12 @@
    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/TU_SCRIPT_ID/exec";
    ========================================================================== */
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzjLHd03TC3lv2V3Uh131hiWH7wL51tmAWIxubqmWBXRAh1Q0xRxO80vRh2dVmMospOJg/exec"; // Pegar URL de Apps Script si se utiliza
 
 // --------------------------------------------------------------------------
 // 2. OBJETIVO DE LA FECHA DE LA FIESTA
 // --------------------------------------------------------------------------
 // Fecha del evento: 3 de Octubre de 2026, 21:00 hs (Mes 9 en JS = Octubre)
-const TARGET_DATE = new Date(2026, 9, 3, 21, 0, 0);
+//const TARGET_DATE = new Date(2026, 9, 3, 21, 0, 0);
 
 // --------------------------------------------------------------------------
 // 3. INICIALIZACIÓN AL CARGAR EL DOM
@@ -54,146 +55,20 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ==========================================================================
-   4. CANVAS DE ESTRELLAS ANIMADAS
+   4. CANVAS DE ESTRELLAS ANIMADAS -  (modules/starCanvas.js)
    ========================================================================== */
-function initStarCanvas() {
-  const canvas = document.getElementById("star-canvas");
-  if (!canvas) return;
-
-  const ctx = canvas.getContext("2d");
-  let stars = [];
-  const starCount = window.innerWidth < 768 ? 70 : 130;
-
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-
-  function createStars() {
-    stars = [];
-    for (let i = 0; i < starCount; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 1.6 + 0.3,
-        alpha: Math.random(),
-        speed: Math.random() * 0.015 + 0.005,
-        direction: Math.random() > 0.5 ? 1 : -1
-      });
-    }
-  }
-
-  function drawStars() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    stars.forEach(star => {
-      star.alpha += star.speed * star.direction;
-      if (star.alpha >= 1 || star.alpha <= 0.1) {
-        star.direction *= -1;
-      }
-
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(235, 235, 235, ${star.alpha.toFixed(2)})`;
-      ctx.fill();
-    });
-
-    requestAnimationFrame(drawStars);
-  }
-
-  window.addEventListener("resize", () => {
-    resizeCanvas();
-    createStars();
-  });
-
-  resizeCanvas();
-  createStars();
-  drawStars();
-}
 
 /* ==========================================================================
-   5. CONTADOR EN VIVO (COUNTDOWN)
+   5. CONTADOR EN VIVO (COUNTDOWN) - (modules/countdown.js)
    ========================================================================== */
-function initCountdown() {
-  const daysEl = document.getElementById("days");
-  const hoursEl = document.getElementById("hours");
-  const minutesEl = document.getElementById("minutes");
-  const secondsEl = document.getElementById("seconds");
-  const statusEl = document.getElementById("countdown-status");
-
-  function updateTimer() {
-    const now = new Date().getTime();
-    const distance = TARGET_DATE.getTime() - now;
-
-    if (distance < 0) {
-      if (daysEl) daysEl.textContent = "00";
-      if (hoursEl) hoursEl.textContent = "00";
-      if (minutesEl) minutesEl.textContent = "00";
-      if (secondsEl) secondsEl.textContent = "00";
-      if (statusEl) statusEl.textContent = "¡El gran día ha llegado! 🌕✨";
-      return;
-    }
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    if (daysEl) daysEl.textContent = String(days).padStart(2, "0");
-    if (hoursEl) hoursEl.textContent = String(hours).padStart(2, "0");
-    if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, "0");
-    if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, "0");
-  }
-
-  updateTimer();
-  setInterval(updateTimer, 1000);
-}
 
 /* ==========================================================================
-   6. AGENDAR EN GOOGLE CALENDAR
+   6. AGENDAR EN GOOGLE CALENDAR - (modules/initCalendars.js)
    ========================================================================== */
-function initCalendarButton() {
-  const btnCalendar = document.getElementById("btn-calendar");
-  if (!btnCalendar) return;
-
-  btnCalendar.addEventListener("click", () => {
-    // Formato UTC: AAAA-MM-DD-THHMMSSZ
-    // Octubre 3, 2026, 21:00 hs Argentina (UTC-3) -> 2026-10-04 00:00:00 UTC
-    // Finalización: Octubre 4, 2026, 05:00 hs Argentina -> 2026-10-04 08:00:00 UTC
-    const title = encodeURIComponent("Los 15 de Matilda");
-    const details = encodeURIComponent("¡Celebremos juntos!");
-    const location = encodeURIComponent("Jano`s San Telmo II- Moreno 550 , CABA, Argentina");
-    const dates = "20261004T000000Z/20261004T080000Z";
-
-    const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}&sf=true&output=xml`;
-
-    window.open(calendarUrl, "_blank");
-    showToast("🗓️ Redirigiendo a Google Calendar...");
-  });
-}
 
 /* ==========================================================================
-   6. AGENDAR EN CALENDAR Iphone
+   6. AGENDAR EN CALENDAR Iphone - (modules/initCalendars.js)
    ========================================================================== */
-function initCalendarButtonIphone() {
-  const btnCalendarIphone = document.getElementById("btn-calendar-iphone");
-  if (!btnCalendarIphone) return;  
-  
-  btnCalendarIphone.addEventListener("click", () => {
-    const title = encodeURIComponent("Los 15 de Matilda");
-    const details = encodeURIComponent("¡Celebremos juntos!");
-    const location = encodeURIComponent("Jano`s San Telmo II- Moreno 550 , CABA, Argentina");
-    const startDate = "20261003T210000"; // 3 de Octubre de 2026, 21:00 hs
-    const endDate = "20261004T050000"; // 4 de Octubre de 2026, 05:00 hs
-
-    const calendarUrl = `data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ASUMMARY:${title}%0ADESCRIPTION:${details}%0ALOCATION:${location}%0ADTSTART:${startDate}%0ADTEND:${endDate}%0AEND:VEVENT%0AEND:VCALENDAR`;
-
-    window.open(calendarUrl, "_blank");
-    showToast("�🗓️ Redirigiendo a Calendar iPhone...");
-  });
-
-}
-
 
 /* ==========================================================================
    7. MANEJO DEL FORMULARIO RSVP (CONFIRMACIÓN DE ASISTENCIA)
@@ -246,7 +121,7 @@ function initRSVPForm() {
 
     try {
       // Guardado local de respaldo
-      localStorage.setItem("matilda15_rsvp_data", JSON.stringify(rsvpData));
+      //localStorage.setItem("matilda15_rsvp_data", JSON.stringify(rsvpData));
 
       // Si se configuró Google Apps Script Webhook
       if (GOOGLE_SCRIPT_URL) {
@@ -301,107 +176,8 @@ function initRSVPForm() {
 }
 
 /* ==========================================================================
-   8. FORMULARIO "SUGERIR CANCIÓN" Y LISTA INTERACTIVA
+   8. FORMULARIO "SUGERIR CANCIÓN" Y LISTA INTERACTIVA - (modules/songSuggestions.js)
    ========================================================================== */
-const INITIAL_SONGS = [
-  { id: 1, title: "A Sky Full of Stars", artist: "Coldplay", user: "Valen", votes: 8 },
-  { id: 2, title: "Night Changes", artist: "One Direction", user: "Sofia", votes: 12 },
-  { id: 3, title: "Golden", artist: "Harry Styles", user: "Matilda", votes: 15 },
-  { id: 4, title: "Dance The Night", artist: "Dua Lipa", user: "Lucía", votes: 6 }
-];
-
-function initSongSuggestions() {
-  const songForm = document.getElementById("song-form");
-  const container = document.getElementById("song-list-container");
-
-  if (!container) return;
-
-  // Cargar canciones desde localStorage o usar iniciales
-  let songs = [];
-  const stored = localStorage.getItem("matilda15_songs_list");
-  if (stored) {
-    try {
-      songs = JSON.parse(stored);
-    } catch (e) {
-      songs = INITIAL_SONGS;
-    }
-  } else {
-    songs = INITIAL_SONGS;
-    localStorage.setItem("matilda15_songs_list", JSON.stringify(songs));
-  }
-
-  function renderSongs() {
-    container.innerHTML = "";
-    // Ordenar por votos de mayor a menor
-    songs.sort((a, b) => b.votes - a.votes);
-
-    songs.forEach((song) => {
-      const card = document.createElement("div");
-      card.className = "song-item";
-      card.innerHTML = `
-        <div class="song-details">
-          <span class="song-title-text">${escapeHtml(song.title)}</span>
-          <span class="song-artist-text">${escapeHtml(song.artist)} ${song.user ? `(por ${escapeHtml(song.user)})` : ''}</span>
-        </div>
-        <button class="song-votes-btn" data-id="${song.id}">
-          ❤️ <span>${song.votes}</span>
-        </button>
-      `;
-
-      const voteBtn = card.querySelector(".song-votes-btn");
-      if (voteBtn) {
-        voteBtn.addEventListener("click", () => {
-          song.votes += 1;
-          localStorage.setItem("matilda15_songs_list", JSON.stringify(songs));
-          renderSongs();
-          showToast(`🎵 ¡Votaste por "${song.title}"!`);
-        });
-      }
-
-      container.appendChild(card);
-    });
-  }
-
-  if (songForm) {
-    songForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const titleInput = document.getElementById("song-title");
-      const artistInput = document.getElementById("song-artist");
-      const userInput = document.getElementById("song-user");
-
-      if (!titleInput || !artistInput) return;
-
-      const title = titleInput.value.trim();
-      const artist = artistInput.value.trim();
-      const user = userInput ? userInput.value.trim() : "";
-
-      if (!title || !artist) {
-        showToast("⚠️ Ingresa el nombre de la canción y el artista.", "error");
-        return;
-      }
-
-      const newSong = {
-        id: Date.now(),
-        title,
-        artist,
-        user,
-        votes: 1
-      };
-
-      songs.push(newSong);
-      localStorage.setItem("matilda15_songs_list", JSON.stringify(songs));
-      renderSongs();
-
-      titleInput.value = "";
-      artistInput.value = "";
-      if (userInput) userInput.value = "";
-
-      showToast("🎶 ¡Canción agregada a la lista!");
-    });
-  }
-
-  renderSongs();
-}
 
 /* ==========================================================================
    9. GESTIÓN DE MODALES (DRESS CODE Y REGALOS)
