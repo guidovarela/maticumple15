@@ -54,7 +54,7 @@
         <h1 class="hero-title">Matilda</h1>
 
         <p class="hero-quote">
-          "Las noches especiales se iluminan con las personas que queremos. <br> Quiero compatir esta noche con vos."
+          "Las noches especiales se iluminan con las personas que queremos. <br> Quiero compatir este festejo con vos."
         </p>
 
         <div class="hero-date-badge">
@@ -118,7 +118,7 @@
     <section class="location-section" id="location">
       <div class="container">
         <h2 class="section-title">Fecha & Ubicación</h2>
-        <p class="section-subtitle">Acompáñame a celebrar en esta gran velada</p>
+        <!-- <p class="section-subtitle">Acompañame a celebrar en esta gran velada</p> -->
 
         <div class="location-cards-grid">
           <!-- Card Fecha y Hora -->
@@ -126,12 +126,12 @@
             <div class="card-icon"><i class="fa-regular fa-calendar-check"></i></div>
             <h3>Fecha y Hora</h3>
             <p class="card-main-info">Sábado 03 de Octubre</p>
-            <p class="card-sub-info">de 21:00 a 5:00 hs</p>
+            <p class="card-sub-info">de 21:00 a 05:00 hs</p>
             <button id="btn-calendar" class="btn btn-secondary btn-full">
-              <span class="btn-icon">🗓️</span> Agendar en Google Calendar
+             Agendar en <i class="fa-brands fa-android"></i>
             </button>
             <button id="btn-calendar-iphone" class="btn btn-secondary btn-full">
-              <span class="btn-icon">🗓️</span> Agendar en iPhone / iOS
+             Agendar en <i class="fa-brands fa-apple"></i>
             </button>
           </div>
 
@@ -157,7 +157,7 @@
     <!-- Separador Estelar -->
     <div class="section-divider">
       <span class="divider-line"></span>
-      <span class="divider-symbol">✦ ✉️ ✦</span>
+      <span class="divider-symbol">✦ <i class="fa-solid fa-envelope"></i> ✦</span>
       <span class="divider-line"></span>
     </div>
 
@@ -166,7 +166,7 @@
       <div class="container max-w-md">
         <div class="glass-card">
           <h2 class="section-title">Confirmación <br> de Asistencia</h2>
-          <p class="section-subtitle">Saber con tiempo si venis, nos ayuda a la organización. <br> Hacelo antes del <strong>19/09/2026</strong></p>
+          <p class="section-subtitle">Saber con tiempo si venís, nos ayuda a la organización. <br> Hacelo antes del <strong>19/09/2026</strong></p>
 
           <form id="rsvp-form" class="custom-form">
             <div class="form-group">
@@ -204,20 +204,19 @@
 
             <div class="form-group">
               <label for="rsvp-message">Algo extra que quieras decirnos...</label>
-              <textarea id="rsvp-message" name="mensaje" rows="3" placeholder="Escribe tus buenos deseos aquí..."></textarea>
+              <textarea id="rsvp-message" name="mensaje" rows="3" placeholder="Tus buenos deseos aquí..."></textarea>
             </div>
 
             <button type="submit" id="rsvp-submit-btn" class="btn btn-primary btn-full btn-glow">
               <span class="btn-text">Confirmar Asistencia</span>
-              <span class="btn-icon">✨</span>
             </button>
           </form>
 
           <!-- Contenedor de confirmación exitosa -->
           <div id="rsvp-success-msg" class="success-box hidden">
-            <div class="success-icon">🎉</div>
+            <div class="success-icon">✔</div>
             <h3>¡Gracias por confirmar!</h3>
-            <p id="rsvp-success-text">Tu respuesta ha sido registrada con éxito. ¡Nos vemos muy pronto!</p>
+            <p id="rsvp-success-text">Tu respuesta se registró con éxito. ¡Nos vemos muy pronto!</p>
             <button id="rsvp-edit-btn" class="btn btn-outline btn-sm">Enviar otra respuesta</button>
           </div>
         </div>
@@ -227,19 +226,51 @@
     <!-- Separador Estelar -->
     <div class="section-divider">
       <span class="divider-line"></span>
-      <span class="divider-symbol">✦ <i class="fa-solid fa-music"></i> ✦</span>
+      <span class="divider-symbol">✦ <i class="fa-solid fa-bookmark"></i> ✦</span>
       <span class="divider-line"></span>
     </div>
+    
 
     <!-- ==================== 5. DETALLES & INTERACTIVIDAD ==================== -->
     <section class="interactive-section" id="details">
       <div class="container">
         
+        <div class="grid-2-col">
+          <!-- Dress Code Card -->
+          <div class="glass-card feature-card">
+            <div class="feature-icon">👗👔</div>
+            <h3>Dress Code</h3>
+            <p class="feature-title">Elegante</p>
+            <p class="feature-desc">Queremos que te veas espectacular. Consulta nuestra guía de estilos y paleta recomendada.</p>
+            <button id="btn-dresscode-modal" class="btn btn-outline btn-full">
+              Ver Detalles del Dress Code
+            </button>
+          </div>
+          
+          <!-- Regalos Card preview -->
+          <div class="glass-card feature-card">
+            <div class="feature-icon">🎁</div>
+            <h3>Regalo</h3>
+            <!-- <p class="feature-title">Tu Presencia es mi Regalo</p> -->
+            <p class="feature-desc">El mejor regalo es contar con tu presencia. <br> Sin embargo, si deseas realizarme un obsequio para acompañarme en mi futuro viaje</p>
+            <button id="btn-gift-modal" class="btn btn-outline btn-full">
+              Hacer regalo
+            </button>
+          </div>
+        </div>
+
+            <!-- Separador Estelar -->
+    <div class="section-divider">
+      <span class="divider-line"></span>
+      <span class="divider-symbol">✦ <i class="fa-solid fa-music"></i> ✦</span>
+      <span class="divider-line"></span>
+    </div>
+        
         <!-- Sugerir Canción -->
         <div class="music-suggestion-block">
           <h2 class="section-title">Sugerinos una Canción</h2>
           <p class="section-subtitle">¿Qué tema no puede faltar? Sumá a la playlist!</p>
-
+  
           <form id="song-form" class="custom-form inline-form max-w-md">
             <div class="form-group">
               <input type="text" id="song-title" name="titulo" placeholder="Nombre de la canción *" required />
@@ -254,7 +285,7 @@
               <span class="btn-icon">🎵</span> enviar sugerencia
             </button>
           </form>
-
+  
           <!-- Lista interactiva de canciones sugeridas 
           <div class="playlist-preview">
             <h3>Canciones sugeridas por los invitados:</h3>
@@ -264,31 +295,6 @@
           </div>-->
         
         </div>
-          
-        <div class="grid-2-col">
-          <!-- Dress Code Card -->
-          <div class="glass-card feature-card">
-            <div class="feature-icon">👗👔</div>
-            <h3>Dress Code</h3>
-            <p class="feature-title">Elegante</p>
-            <p class="feature-desc">Queremos que te veas espectacular. Consulta nuestra guía de estilos y paleta recomendada.</p>
-            <button id="btn-dresscode-modal" class="btn btn-outline btn-full">
-              Ver Detalles del Dress Code
-            </button>
-          </div>
-
-          <!-- Regalos Card preview -->
-          <div class="glass-card feature-card">
-            <div class="feature-icon">🎁</div>
-            <h3>Regalo</h3>
-            <!-- <p class="feature-title">Tu Presencia es mi Regalo</p> -->
-            <p class="feature-desc">El mejor regalo es contar con tu presencia. <br> Sin embargo, si deseas realizarme un obsequio para acompañarme en mi futuro viaje</p>
-            <button id="btn-gift-modal" class="btn btn-outline btn-full">
-              Hacer regalo
-            </button>
-          </div>
-        </div>
-
       </div>
     </section>
 
@@ -303,7 +309,7 @@
     <footer class="footer-section">
       <div class="container">
         <p class="footer-title">Matilda ✦ Mis 15 Años</p>
-        <p class="footer-date">3 de Octubre de 2026</p>
+        <p class="footer-date">03 de Octubre de 2026</p>
         <p class="footer-copy">© 2026 - Desarrollado por <a href="https://www.aldeadg.com.ar" target="_blank" rel="noopener noreferrer">AldeaDG</a></p>
       </div>
     </footer>
@@ -348,8 +354,8 @@
       </div>
 
       <div class="modal-footer">
-        <a href="https://pinterest.com/search/pins/?q=Elegante%20total%20black%2015" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-full">
-          📌 Ver Tablero de Inspiración en Pinterest
+        <a href="https://pin.it/1tgebD2KC" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-full">
+          <i class="fa-brands fa-pinterest"></i> Tablero de Inspiración
         </a>
       </div>
     </div>
@@ -381,7 +387,7 @@
           </div>
           <div class="bank-row">
             <span class="bank-label">Alias:</span>
-            <span class="bank-value highlight" id="alias-value">hola.matilda.mp</span>
+            <span class="bank-value highlight" id="alias-value">var.mati.mp</span>
             <button id="btn-copy-alias" class="btn-copy-icon" title="Copiar Alias">
               📋 Copiar
             </button>

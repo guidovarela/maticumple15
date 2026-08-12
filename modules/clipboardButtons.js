@@ -2,12 +2,11 @@
    10. FUNCIONALIDAD PORTAPAPELES (COPIAR ALIAS Y CBU)
    ========================================================================== */
 
-import { showToast } from "./toastNotification.js";
-import { initModals } from "./initModals.js";
+import { showToast } from "./showToast.js";
 
 function initClipboardButtons() {
-  const aliasVal = "MATILDA.15.MOON";
-  const cbuVal = "0000003100084739201948";
+  const aliasVal = "var.mati.mp";
+  const cbuVal = "0000003100080794378240";
 
   const btnAlias = document.getElementById("btn-copy-alias");
   const btnModalAlias = document.getElementById("btn-modal-copy-alias");

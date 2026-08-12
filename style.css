@@ -684,7 +684,7 @@ a {
   backdrop-filter: blur(18px);
   border-radius: var(--border-radius-lg);
   padding: clamp(1.5rem, 4vw, 2.5rem);
-  margin-bottom: 2.5rem;
+  margin-top: 2.5rem;
   box-shadow: var(--card-shadow);
 }
 
